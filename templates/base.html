@@ -1,0 +1,48 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Maison Virtu — {% block title %}{% endblock %}</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="topbar">
+    <div class="container">
+      <a class="brand" href="{% url 'index' %}">Maison Virtu</a>
+      <nav class="nav">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'index' %}#services">Services</a>
+
+        {% if user.is_authenticated %}
+          <a href="{% url 'my_appointments' %}">My Appointments</a>
+          <form method="post" action="{% url 'logout' %}" style="display:inline">
+            {% csrf_token %}
+            <button class="btn small ghost" type="submit">Logout</button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}">Login</a>
+          <a href="{% url 'signup' %}">Sign up</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© Maison Virtu — We handle the tasks so you can lead your business with confidence.</p>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
+

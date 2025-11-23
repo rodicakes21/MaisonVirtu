@@ -1,0 +1,19 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ service.name }}{% endblock %}
+{% block content %}
+<article class="service-detail">
+  <h2>{{ service.name }}</h2>
+  <p class="muted">{{ service.duration_minutes }} minutes · {% if service.price %}₱{{ service.price }}{% else %}Price on request{% endif %}</p>
+  <p>{{ service.description }}</p>
+
+  <h3>Book this service</h3>
+  <form method="post" action="{% url 'book_service' service.pk %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn">Book Appointment</button>
+  </form>
+</article>
+{% endblock %}

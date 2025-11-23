@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>Maison Virtu</h1>
+  <p class="lead">At Maison Virtu, we handle the tasks, systems, and processes that slow you down — administrative work, branding, marketing and smart automation. We treat your business as if it were our own.</p>
+  <a class="btn" href="#services">Explore Services</a>
+</section>
+
+<section id="services" class="services">
+  <h2>Services</h2>
+  <div class="cards">
+    {% for service in services %}
+      <div class="card">
+        <h3>{{ service.name }}</h3>
+        <p>{{ service.description|truncatechars:140 }}</p>
+        <p class="meta">{{ service.duration_minutes }} min{% if service.price %} · ₱{{ service.price }}{% endif %}</p>
+        <a class="btn small" href="{% url 'service_detail' service.pk %}">View & Book</a>
+      </div>
+    {% empty %}
+      <p>No services yet — add some in admin.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
